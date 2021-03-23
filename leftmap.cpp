@@ -12,8 +12,12 @@ LeftMap::LeftMap(QWidget *parent) :
     ui(new Ui::LeftMap)
 {
     ui->setupUi(this);
-    QObject::connect(ui->stopPro, SIGNAL(clicked()), SLOT(closeLetMap()));
-    QObject::connect(ui->startPro, SIGNAL(clicked()), SLOT(showData()));
+    this->_scene = new QGraphicsScene(this);
+    ui->mapView->setScene(this->_scene);
+    ui->mapView->scale(1, -1);
+    ui->mapView->setBaseSize(this->height()*0.75, this->width());
+
+    initSlots();
 }
 
 LeftMap::~LeftMap()
@@ -23,6 +27,12 @@ LeftMap::~LeftMap()
 
 void LeftMap::closeLetMap(){
    this->close();
+}
+
+void LeftMap::initSlots(){
+    QObject::connect(ui->stopPro, SIGNAL(clicked()), SLOT(closeLetMap()));
+    QObject::connect(ui->startPro, SIGNAL(clicked()), SLOT(showData()));
+    QObject::connect(ui->startPro, SIGNAL(clicked()), SLOT(showMapPoints()));
 }
 
 //连接数据库
@@ -62,6 +72,7 @@ void LeftMap::showData(){
         double uwb_y =query.value(7).toDouble();
         int landmark_id = query.value(8).toInt();
         createRowData(curRow,id, x, y, theta, inf_x, inf_y, uwb_x, uwb_y, landmark_id);
+        showMapPoints(x,y);
     }
 }
 
@@ -86,4 +97,11 @@ void LeftMap::createRowData(int rowNo,int id,double x,double y,double theta,doub
     ui->tableView->setItem(rowNo,6,item6);
     ui->tableView->setItem(rowNo,7,item7);
     ui->tableView->setItem(rowNo,8,item8);
+}
+
+void LeftMap::showMapPoints(double x, double y){
+    QGraphicsEllipseItem *point = new QGraphicsEllipseItem(QRectF(0,0,5,5));
+    point->setBrush(QBrush(QColor(qrand()%256,qrand()%256,qrand()%256)));
+    point->setPos(x,y);
+    this->_scene->addItem(point);
 }
