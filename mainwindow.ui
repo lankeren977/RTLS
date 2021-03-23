@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>943</width>
-    <height>488</height>
+    <width>1197</width>
+    <height>522</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -71,7 +71,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="read">
              <property name="text">
               <string>开始</string>
              </property>
@@ -92,10 +92,10 @@
      </layout>
     </item>
     <item row="0" column="1">
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="table">
       <property name="maximumSize">
        <size>
-        <width>800</width>
+        <width>1000</width>
         <height>120</height>
        </size>
       </property>
@@ -160,8 +160,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>943</width>
-     <height>22</height>
+     <width>1197</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
